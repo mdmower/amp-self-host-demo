@@ -1,0 +1,13 @@
+{
+  "name": "pwa-test-with-self-hosted-amp-rt",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "dependencies": {
+    "@ampproject/toolbox-runtime-version": "file:amp-toolbox/packages/runtime-version",
+    "@ampproject/toolbox-optimizer": "file:amp-toolbox/packages/optimizer",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {}
+}

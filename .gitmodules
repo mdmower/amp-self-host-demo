@@ -1,0 +1,3 @@
+[submodule "amp-toolbox"]
+	path = amp-toolbox
+	url = git@github.com:mdmower/amp-toolbox.git
