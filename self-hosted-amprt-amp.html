@@ -34,7 +34,8 @@
       padding-left: 0.5em;
       margin-bottom: 0.5em;
     }
-    li {
+    li,
+    .notice {
       margin-top: 0.5em;
     }
   </style>
@@ -60,6 +61,10 @@
         <li><label><input name="page" type="radio" value="opt-rcme-drv" data-allow-initialization> Optimized AMP (runtime version specified, rewrite amp-geo URLs)</label></li>
     </ul>
     <button type="submit">Submit</button>
+    <p class="notice">Notice that the PWA configuration options take precedence over the AMP cache hosts in the AMP documents.<br>
+      <code>cdnUrl: 'https://ampdemo.cmphys.com/pr25026-runtime'</code><br>
+      <code>cdnUrlSupportsCacheModifiedExtensions: false</code>
+    </p>
   </form>
 
   <h3>View as AMP (non-PWA):</h3>
