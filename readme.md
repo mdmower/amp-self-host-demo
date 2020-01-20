@@ -20,7 +20,7 @@ The AMP runtime is based on [version 1912201827130](https://github.com/mdmower/a
 
 ## amp-toolbox modifications
 
-A [modified version of `amp-toolbox`](https://github.com/mdmower/amp-toolbox/commits/master) is included in this repository's packages. The changes include:
+A modified version of `amp-toolbox` is included in this repository's packages. See branch `selfhost` of [github.com/mdmower/amp-toolbox](https://github.com/mdmower/amp-toolbox/commits/selfhost). The changes include:
 
 - [optimizer: Require rtv/{rtv} paths if self-hosting](https://github.com/mdmower/amp-toolbox/commit/c79ce1b28a28ef3cd2eddee564856b5853dab019)
 - [runtime-version: Support alternate AMP caches](https://github.com/mdmower/amp-toolbox/commit/1cc2381dae09c0188d72da40e6bbf0efe9152c2f)
