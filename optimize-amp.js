@@ -9,14 +9,13 @@
     // Self-hosted AMP runtime version:
     // https://ampdemo.cmphys.com/pr25026-runtime/version.txt
 
-    async function optimizeHtml(ampHtml, defineAmpRuntimeVersion, rewriteCacheModifiedExtensions) {
+    async function optimizeHtml(ampHtml, defineAmpRuntimeVersion) {
         // AMP runtime URL prefix
         const ampUrlPrefix = `https://ampdemo.cmphys.com/pr25026-runtime`;
 
         // Prepare transformation options
         const transformOptions = {
-            ampUrlPrefix: ampUrlPrefix,
-            rewriteCacheModifiedExtensions
+            ampUrlPrefix: ampUrlPrefix
         };
 
         if (defineAmpRuntimeVersion) {
@@ -28,17 +27,13 @@
         }
 
         /**
-         * Output files:
-         * self-hosted-amprt-opt.html - No runtime version specified, do not rewrite amp-geo URLs
-         * self-hosted-amprt-opt-rcme.html - No runtime version specified, rewrite amp-geo URLs
-         * self-hosted-amprt-opt-drv.html - Runtime version specified, do not rewrite amp-geo URLs
-         * self-hosted-amprt-opt-rcme-drv.html - Runtime version specified, rewrite amp-geo URLs
+         * Output files:                         Runtime version specified?
+         * self-hosted-amprt-opt.html            no
+         * self-hosted-amprt-opt-rtv.html        yes
          */
         let outputFilename = 'self-hosted-amprt-opt';
-        if (rewriteCacheModifiedExtensions)
-            outputFilename += '-rcme';
         if (defineAmpRuntimeVersion)
-            outputFilename += '-drv';
+            outputFilename += '-rtv';
         outputFilename += '.html';
 
         // Optimize AMP HTML
@@ -49,8 +44,8 @@
     }
 
     let ampHtml = await fsPromises.readFile('self-hosted-amprt-amp.html');
-    [[false, false], [false, true], [true, false], [true, true]].forEach(async (parms) => {
-        let optimized = await optimizeHtml(ampHtml.toString(), parms[0], parms[1]);
+    [false, true].forEach(async (specifyRtv) => {
+        let optimized = await optimizeHtml(ampHtml.toString(), specifyRtv);
         await fsPromises.writeFile(optimized.filename, optimized.html || '');
     });
 }());

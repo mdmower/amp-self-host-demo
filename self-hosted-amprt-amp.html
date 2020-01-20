@@ -7,7 +7,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
     body {
@@ -15,12 +15,13 @@
       padding: 8px;
       font-family: sans-serif;
     }
-    .geo-text,
-    body[class*="amp-geo"] .nogeo-text {
-      display: none;
+    .geo-success,
+    .geo-error,
+    body[class*="amp-geo"] .geo-notrun {
+        display: none;
     }
-    .nogeo-text,
-    body[class*="amp-geo"] .geo-text {
+    body.amp-geo-error .geo-error,
+    body[class*="amp-geo"]:not(.amp-geo-error) .geo-success {
       display: block;
     }
     h3 {
@@ -44,8 +45,9 @@
   <h2>Self-hosted AMP runtime test</h2>
 
   <h3>amp-geo</h3>
-  <p class="geo-text"><code>amp-geo</code> class successfully added to body.</p>
-  <p class="nogeo-text"><code>amp-geo</code> <strong>did not</strong> add a class to the body.</p>
+  <p class="geo-success"><code>amp-geo</code> country successfully identified.</p>
+  <p class="geo-error"><code>amp-geo</code> loaded but is unpatched; country unknown.</p>
+  <p class="geo-notrun"><code>amp-geo</code> has not run yet.</p>
 
   <h3>amp-img</h3>
   <p><amp-img layout="fixed" width="320" height="214" src="img/goldfish.jpg"></amp-img></p>
@@ -55,25 +57,18 @@
     <p>View in PWA:</p>
     <ul>
         <li><label><input name="page" type="radio" value="amp" data-allow-initialization> Standard AMP</label></li>
-        <li><label><input name="page" type="radio" value="opt" data-allow-initialization> Optimized AMP (no runtime version specified, do not rewrite amp-geo URLs)</label></li>
-        <li><label><input name="page" type="radio" value="opt-rcme" data-allow-initialization> Optimized AMP (no runtime version specified, rewrite amp-geo URLs)</label></li>
-        <li><label><input name="page" type="radio" value="opt-drv" data-allow-initialization> Optimized AMP (runtime version specified, do not rewrite amp-geo URLs)</label></li>
-        <li><label><input name="page" type="radio" value="opt-rcme-drv" data-allow-initialization> Optimized AMP (runtime version specified, rewrite amp-geo URLs)</label></li>
+        <li><label><input name="page" type="radio" value="opt" data-allow-initialization> Optimized AMP (no runtime version specified)</label></li>
+        <li><label><input name="page" type="radio" value="opt-rtv" data-allow-initialization> Optimized AMP (runtime version specified)</label></li>
     </ul>
     <button type="submit">Submit</button>
-    <p class="notice">Notice that the PWA configuration options take precedence over the AMP cache hosts in the AMP documents.<br>
-      <code>cdnUrl: 'https://ampdemo.cmphys.com/pr25026-runtime'</code><br>
-      <code>cdnUrlSupportsCacheModifiedExtensions: false</code>
-    </p>
+    <p class="notice">Notice that the PWA configuration options set in <code>window.AMP_CONFIG</code> take precedence over the AMP document's <code>&lt;meta name="runtime-host"&gt;</code> configuration. For any of the AMP documents listed above, if you inspect network traffic when the document is loaded in a PWA, you should see every component loads from <code>https://ampdemo.cmphys.com/pr25026-runtime</code>.</p>
   </form>
 
   <h3>View as AMP (non-PWA):</h3>
   <ul>
     <li><a href="self-hosted-amprt-amp.html">Standard AMP page</a></li>
-    <li><a href="self-hosted-amprt-opt.html">Optimized AMP page (no runtime version specified, do not rewrite amp-geo URLs)</a></li>
-    <li><a href="self-hosted-amprt-opt-rcme.html">Optimized AMP page (no runtime version specified, rewrite amp-geo URLs)</a></li>
-    <li><a href="self-hosted-amprt-opt-drv.html">Optimized AMP page (runtime version specified, do not rewrite amp-geo URLs)</a></li>
-    <li><a href="self-hosted-amprt-opt-rcme-drv.html">Optimized AMP page (runtime version specified, rewrite amp-geo URLs)</a></li>
+    <li><a href="self-hosted-amprt-opt.html">Optimized AMP page (no runtime version specified)</a></li>
+    <li><a href="self-hosted-amprt-opt-rtv.html">Optimized AMP page (runtime version specified)</a></li>
   </ul>
 
   <amp-geo layout=nodisplay>
