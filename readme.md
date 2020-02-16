@@ -32,5 +32,5 @@ A modified version of `amp-toolbox` is included in this repository as a submodul
   - `<host>/` and
   - `<host>/rtv/<rtv>/`
 
-  where in this example `<host>=https://ampdemo.cmphys.com/pr25026-runtime` and `<rtv>=1912201827130`.
+  where in this example `<host>=https://ampdemo.cmphys.com/pr25026-runtime` and `<rtv>=011912201827130`.
 - `amp-toolbox` depends on the availability of `<host>/rtv/metadata` (see also [cdn.ampproject.org/rtv/metadata](https://cdn.ampproject.org/rtv/metadata)) to perform boilerplate CSS inlining when `ampRuntimeVersion` is not defined.
