@@ -14,6 +14,7 @@ Demos of the optimized AMP pages and runtime are available at the following URLs
 The AMP runtime was forked from upstream at commit `31c15e390e8c5f46810bd1e80e5cf40a673a1425` (build-system: Fix autocomplete error response (#26824)) and includes the following [additional commit(s)](https://github.com/mdmower/amphtml/commits/pr-selfhost2):
 
 - config: Check doc head for custom URLs
+- config: Remove dependencies and workaround lint
 
 ## amp-toolbox modifications
 
