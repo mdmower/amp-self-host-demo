@@ -27,6 +27,10 @@ A modified version of `amp-toolbox` is included in this repository as a submodul
   ```
   $ gulp dist --version=1912201827130
   ```
-- There is no server-side modification of `amp-geo-0.1.js` implemented. `{{AMP_ISO_COUNTRY_HOTPATCH}}` is left unpatched.
-- The runtime is available at both `https://ampdemo.cmphys.com/pr25026-runtime/` and `https://ampdemo.cmphys.com/pr25026-runtime/rtv/011912201827130/`, matching the convention used by `cdn.ampproject.org`.
-- `amp-toolbox` depends on the availability of `https://ampdemo.cmphys.com/pr25026-runtime/rtv/metadata` (see also [cdn.ampproject.org/rtv/metadata](https://cdn.ampproject.org/rtv/metadata)) to perform boilerplate CSS inlining when `ampRuntimeVersion` is not defined.
+- In this example, there is no server-side modification of `amp-geo-0.1.js` implemented (see [cache guidelines](https://github.com/ampproject/amphtml/blob/master/spec/amp-cache-guidelines.md#guidelines-adding-a-new-cache-to-the-amp-ecosystem)); `{{AMP_ISO_COUNTRY_HOTPATCH}}` is left unpatched. Eventually, `amp-geo` should have [API support](https://github.com/ampproject/amphtml/pull/26407).
+- Matching the convention used by `cdn.ampproject.org`, the runtime is available at both:
+  - `<host>/` and
+  - `<host>/rtv/<rtv>/`
+
+  where in this example `<host>=https://ampdemo.cmphys.com/pr25026-runtime` and `<rtv>=1912201827130`.
+- `amp-toolbox` depends on the availability of `<host>/rtv/metadata` (see also [cdn.ampproject.org/rtv/metadata](https://cdn.ampproject.org/rtv/metadata)) to perform boilerplate CSS inlining when `ampRuntimeVersion` is not defined.
