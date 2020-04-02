@@ -9,4 +9,4 @@ This repository includes AMP &amp; PWAMP examples of using a self-hosted AMP fra
 
 Support for this feature has recently been merged into [amphtml](https://github.com/ampproject/amphtml) and [amp-toolbox](https://github.com/ampproject/amp-toolbox) 2.1.0+.
 
-A full guide is under review by the AMP Project. A snapshot of the current version is available in this repository: [Guide.md](./blob/master/guide.md).
+A full guide is under review by the AMP Project. A snapshot of the current version is available in this repository: [guide.md](guide.md).
