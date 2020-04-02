@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {},
   "dependencies": {
-    "@ampproject/toolbox-runtime-version": "file:amp-toolbox/packages/runtime-version",
-    "@ampproject/toolbox-optimizer": "file:amp-toolbox/packages/optimizer",
+    "@ampproject/toolbox-runtime-version": "^2.1.0",
+    "@ampproject/toolbox-optimizer": "^2.1.0",
     "fs": "0.0.1-security",
     "node-fetch": "^2.6.0"
   },

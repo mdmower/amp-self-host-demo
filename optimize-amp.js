@@ -7,21 +7,22 @@
     const fsPromises = fs.promises;
 
     // Self-hosted AMP runtime version:
-    // https://ampdemo.cmphys.com/pr25026-runtime/version.txt
+    // https://ampdemo.cmphys.com/amp-rt/version.txt
 
     async function optimizeHtml(ampHtml, defineAmpRuntimeVersion) {
         // AMP runtime URL prefix
-        const ampUrlPrefix = `https://ampdemo.cmphys.com/pr25026-runtime`;
+        const ampUrlPrefix = 'https://ampdemo.cmphys.com/amp-rt';
 
         // Prepare transformation options
         const transformOptions = {
-            ampUrlPrefix: ampUrlPrefix
+            ampUrlPrefix: ampUrlPrefix,
+            geoApiUrl: 'https://ampdemo.cmphys.com/amp-geo-api/mock.json',
         };
 
         if (defineAmpRuntimeVersion) {
             // Determine AMP runtime version
             const version = await fetch(ampUrlPrefix + '/version.txt').then(r => r.text());
-            if (!/^\d+$/.test(version))
+            if (!version || version !== encodeURIComponent(version))
                 throw new Error('Invalid response received for version.txt');
             transformOptions.ampRuntimeVersion = '01' + version;
         }
