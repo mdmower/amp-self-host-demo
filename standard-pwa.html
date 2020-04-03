@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <title>Optimized PWA test</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/shadow-v0.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="shadowHost"></div>
+  <script>
+    (window.AMP = window.AMP || []).push(function(AMP) {
+        const page = /[?&]page=opt/.test(location.search) ? '-opt' : '-amp';
+        const url = location.href.replace('-pwa', page);
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'document';
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              const hostElement = document.querySelector('#shadowHost');
+              window.shadowDoc = AMP.attachShadowDoc(hostElement, xhr.response, url);
+            }
+          }
+        };
+        xhr.send();
+    });
+  </script>
+</body>
+</html>

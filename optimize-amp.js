@@ -9,30 +9,29 @@
     // Self-hosted AMP runtime version:
     // https://ampdemo.cmphys.com/amp-rt/version.txt
 
-    async function optimizeHtml(ampHtml, defineAmpRuntimeVersion) {
-        // AMP runtime URL prefix
-        const ampUrlPrefix = 'https://ampdemo.cmphys.com/amp-rt';
-
+    async function optimizeHtml(ampHtml, prefix, defineAmpRuntimeVersion) {
         // Prepare transformation options
-        const transformOptions = {
-            ampUrlPrefix: ampUrlPrefix,
-            geoApiUrl: 'https://ampdemo.cmphys.com/amp-geo-api/mock.json',
-        };
+        const transformOptions = {};
+        if (prefix !== 'standard') {
+            transformOptions.ampUrlPrefix = 'https://ampdemo.cmphys.com/amp-rt';
+            transformOptions.geoApiUrl = 'https://ampdemo.cmphys.com/amp-geo-api/mock.json';
+        }
 
         if (defineAmpRuntimeVersion) {
             // Determine AMP runtime version
-            const version = await fetch(ampUrlPrefix + '/version.txt').then(r => r.text());
+            const host = transformOptions.ampUrlPrefix || 'https://cdn.ampproject.org';
+            const version = await fetch(host + '/version.txt').then(r => r.text());
             if (!version || version !== encodeURIComponent(version))
                 throw new Error('Invalid response received for version.txt');
             transformOptions.ampRuntimeVersion = '01' + version;
         }
 
         /**
-         * Output files:                         Runtime version specified?
-         * self-hosted-amprt-opt.html            no
-         * self-hosted-amprt-opt-rtv.html        yes
+         * Output files:                Runtime version specified?
+         * <prefix>-opt.html            no
+         * <prefix>-opt-rtv.html        yes
          */
-        let outputFilename = 'self-hosted-amprt-opt';
+        let outputFilename = prefix + '-opt';
         if (defineAmpRuntimeVersion)
             outputFilename += '-rtv';
         outputFilename += '.html';
@@ -44,9 +43,14 @@
         };
     }
 
-    let ampHtml = await fsPromises.readFile('self-hosted-amprt-amp.html');
-    [false, true].forEach(async (specifyRtv) => {
-        let optimized = await optimizeHtml(ampHtml.toString(), specifyRtv);
-        await fsPromises.writeFile(optimized.filename, optimized.html || '');
+    let filePrefixes = ['standard', 'self-hosted-amprt'];
+    let optimizePromises = filePrefixes.map(async (prefix) => {
+        let ampHtml = (await fsPromises.readFile(prefix + '-amp.html')).toString();
+        let writePromises = [false, true].map(async (specifyRtv) => {
+            let optimized = await optimizeHtml(ampHtml.toString(), prefix, specifyRtv);
+            return fsPromises.writeFile(optimized.filename, optimized.html || '');
+        });
+        return Promise.all(writePromises);
     });
+    await Promise.all(optimizePromises);
 }());
