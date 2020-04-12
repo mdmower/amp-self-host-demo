@@ -6,8 +6,8 @@
     const ampOptimizer = AmpOptimizer.create();
     const fsPromises = fs.promises;
 
-    // Self-hosted AMP runtime version:
-    // https://ampdemo.cmphys.com/amp-rt/version.txt
+    // Self-hosted AMP runtime metadata:
+    // https://ampdemo.cmphys.com/amp-rt/rtv/metadata
 
     async function optimizeHtml(ampHtml, prefix, defineAmpRuntimeVersion) {
         // Prepare transformation options
