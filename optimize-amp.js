@@ -1,7 +1,7 @@
 (async function () {
-    const fetch = require('node-fetch');
     const fs = require('fs');
     const AmpOptimizer = require('@ampproject/toolbox-optimizer');
+    const AmpRuntimeVersion = require('@ampproject/toolbox-runtime-version');
 
     const ampOptimizer = AmpOptimizer.create();
     const fsPromises = fs.promises;
@@ -19,11 +19,9 @@
 
         if (defineAmpRuntimeVersion) {
             // Determine AMP runtime version
-            const host = transformOptions.ampUrlPrefix || 'https://cdn.ampproject.org';
-            const version = await fetch(host + '/version.txt').then(r => r.text());
-            if (!version || version !== encodeURIComponent(version))
-                throw new Error('Invalid response received for version.txt');
-            transformOptions.ampRuntimeVersion = '01' + version;
+            transformOptions.ampRuntimeVersion = await AmpRuntimeVersion.currentVersion({
+                ampUrlPrefix: transformOptions.ampUrlPrefix,
+            });
         }
 
         /**
