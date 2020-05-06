@@ -19,6 +19,7 @@
 
         if (defineAmpRuntimeVersion) {
             // Determine AMP runtime version
+            transformOptions.rtv = true;
             transformOptions.ampRuntimeVersion = await AmpRuntimeVersion.currentVersion({
                 ampUrlPrefix: transformOptions.ampUrlPrefix,
             });
