@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Optimized PWA test</title>
+  <title>Standard PWA</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script async src="https://cdn.ampproject.org/shadow-v0.js"></script>
@@ -16,8 +16,8 @@
   <div id="shadowHost"></div>
   <script>
     (window.AMP = window.AMP || []).push(function(AMP) {
-        const page = /[?&]page=opt/.test(location.search) ? '-opt' : '-amp';
-        const url = location.href.replace('-pwa', page);
+        const modifier = /[?&]page=opt/.test(location.search) ? '-optimized' : '';
+        const url = location.href.replace('-pwa', '-amp' + modifier);
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
         xhr.responseType = 'document';

@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 <head>
-  <title>Self-hosted PWA test</title>
+  <title>Self-hosted PWA</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script>
     window.AMP_CONFIG = {
       cdnUrl: 'https://ampdemo.cmphys.com/amp-rt',
-      geoApiUrl: 'https://ampdemo.cmphys.com/amp-geo-api/mock.json'
+      geoApiUrl: 'https://ampdemo.cmphys.com/geoip'
     };
   </script>
   <script async src="https://ampdemo.cmphys.com/amp-rt/shadow-v0.js"></script>
@@ -22,8 +22,24 @@
   <div id="shadowHost"></div>
   <script>
     (window.AMP = window.AMP || []).push(function(AMP) {
-        const page = /[?&]page=opt/.test(location.search) ? '-opt' : '-amp';
-        const url = location.href.replace('-pwa', page);
+        const page = new URL(location.href).searchParams.get('page');
+
+        let url = location.href;
+        switch (page) {
+          case 'stdamp':
+            url = url.replace('self-hosted', 'standard').replace('-pwa', '-amp');
+            break;
+          case 'stdopt':
+            url = url.replace('self-hosted', 'standard').replace('-pwa', '-amp-optimized');
+            break;
+          case 'shamp':
+            url = url.replace('-pwa', '-amp');
+            break;
+          case 'shopt':
+            url = url.replace('-pwa', '-amp-optimized');
+            break;
+        }
+
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
         xhr.responseType = 'document';
