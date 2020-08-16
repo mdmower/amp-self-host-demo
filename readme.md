@@ -73,7 +73,7 @@ The instruction below are meant to demonstrate how the AMP pages in this reposit
      $ sed 's|https://cdn.ampproject.org|https://ampdemo.cmphys.com/amp-rt|g' standard-amp.html > self-hosted-amp.html
      ```
 
-   - Optimized: Install and run amp-toolbox's optimizer
+   - Optimized: Install and run [amp-toolbox](https://github.com/ampproject/amp-toolbox) optimizer
 
      ```bash
      $ npm install @ampproject/toolbox-cli -g
